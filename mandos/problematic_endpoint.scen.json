@@ -1,0 +1,72 @@
+{
+    "name": "call problematic endpoint",
+    "gasSchedule": "v4",
+    "steps": [
+        {
+            "step": "externalSteps",
+            "path": "init.scen.json"
+        },
+        {
+            "step": "scCall",
+            "txId": "createStruct 1",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:issue",
+                "function": "createStruct",
+                "arguments": [
+                ],
+                "gasLimit": "15,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "0",
+                "message": "",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "sc:issue": {
+                    "nonce": "*",
+                    "balance": "*",
+                    "storage": {
+                        "str:structTest": {
+                            "00_struct_type": "u8:1",
+                            "01_sub_struct": {
+                                "00_sub_prop_1": "nested:str:EGLD",
+                                "01_sub_prop_2": "u64:0"
+                            },
+                            "02_u64_prop": "u64:0"
+                        }
+                    },
+                    "code": "*"
+                },
+                "+": "*"
+            }
+        },
+        {
+            "step": "scCall",
+            "txId": "problematic endpoint",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:issue",
+                "egldValue": "0",
+                "function": "problematicEndpoint",
+                "arguments": [
+                ],
+                "gasLimit": "20,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "status": "4",
+                "message": "str:expected error",
+                "out": [],
+                "gas": "*",
+                "refund": "*"
+            }
+        }
+    ]
+}

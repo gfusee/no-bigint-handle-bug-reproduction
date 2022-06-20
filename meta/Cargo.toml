@@ -1,0 +1,15 @@
+[package]
+name = "issue-meta"
+version = "0.0.0"
+authors = [""]
+edition = "2018"
+publish = false
+
+[dependencies.issue]
+path = ".."
+
+[dependencies.elrond-wasm]
+version = "0.32.0"
+
+[dependencies.elrond-wasm-debug]
+version = "0.32.0"

@@ -1,0 +1,60 @@
+{
+    "name": "deploy",
+    "gasSchedule": "v4",
+    "steps": [
+        {
+            "step": "setState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "0",
+                    "balance": "0",
+                    "storage": {}
+                }
+            },
+            "newAddresses": [
+                {
+                    "creatorAddress": "address:owner",
+                    "creatorNonce": "0",
+                    "newAddress": "sc:issue"
+                }
+            ]
+        },
+        {
+            "step": "scDeploy",
+            "txId": "deploy",
+            "comment": "deploy issue contract",
+            "tx": {
+                "from": "address:owner",
+                "value": "0",
+                "contractCode": "file:../output/issue.wasm",
+                "arguments": [],
+                "gasLimit": "9,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "status": "0",
+                "message": "",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "*",
+                    "balance": "0",
+                    "storage": {}
+                },
+                "sc:issue": {
+                    "nonce": "0",
+                    "balance": "0",
+                    "storage": {
+                    },
+                    "code": "file:../output/issue.wasm"
+                },
+                "+": {}
+            }
+        }
+    ]
+}
