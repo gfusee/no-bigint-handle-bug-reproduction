@@ -2,6 +2,8 @@
 
 This smart contract is a reproduction of the `no bigInt under the given handle` error.
 
+Link to the related issue : https://github.com/ElrondNetwork/elrond-wasm-rs/issues/758
+
 ## Contract structure
 
 This contract contains 3 endpoints :
